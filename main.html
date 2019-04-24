@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script defer src="startGame.js"></script>
+    <style type="text/css">
+        table tr {
+            height: 50px;
+        }
+        table td {
+            width: 50px;
+            border: 1px solid gray;
+        }
+        table {
+            border: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <table>
+            <tr><td id="cell_1" onclick="getColor('1')" bgcolor="white"></td><td id="cell_2" onclick="getColor('2')" bgcolor="white"></td><td id="cell_3" onclick="getColor('3')" bgcolor="white"></td><td id="cell_4" onclick="getColor('4')" bgcolor="white"></td></tr>
+            <tr><td id="cell_5" onclick="getColor('5')" bgcolor="white"></td><td id="cell_6" onclick="getColor('6')" bgcolor="white"></td><td id="cell_7" onclick="getColor('7')" bgcolor="white"></td><td id="cell_8" onclick="getColor('8')" bgcolor="white"></td></tr>
+            <tr><td id="cell_9" onclick="getColor('9')" bgcolor="white"></td><td id="cell_10" onclick="getColor('10')" bgcolor="white"></td><td id="cell_11" onclick="getColor('11')" bgcolor="white"></td><td id="cell_12" onclick="getColor('12')" bgcolor="white"></td></tr>
+            <tr><td id="cell_13" onclick="getColor('13')" bgcolor="white"></td><td id="cell_14" onclick="getColor('14')" bgcolor="white"></td><td id="cell_15" onclick="getColor('15')" bgcolor="white"></td><td id="cell_16" onclick="getColor('16')" bgcolor="white"></td></tr>
+
+        </table>
+        <br>
+        <button onclick="start()">Start</button>
+        <br>
+        <br>
+        <input id="timer">
+    </div>
+</body>
+</html>
