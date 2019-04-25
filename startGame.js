@@ -1,6 +1,7 @@
 'use strict'
 var randColor = [];
 var currentColor = 'white';
+var currentIndexFirst = 'white';
 var currentIndex = 'cell_1';
 var nextColor = 'white';
 var nextIndex = 'cell_1';
@@ -11,6 +12,7 @@ var count = 0;
 var minute = 0;
 var second = 0;
 var timeId = 0;
+var goodCell = [];
 function start() {
     document.getElementById('timer').value = '0';
     var arrLen= document.getElementsByTagName('td').length;
@@ -56,31 +58,39 @@ function getRandColor() {
 
 function getColor(key) {
 
-
-
     if(!flagStart) {
         alert('Error! Click on Start!');
     } else {
+        if (find(window.goodCell, 'cell_' + key)) {
 
-        document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
-        if (window.flag) {
-            window.flagWhite = false;
-            window.currentColor = window.randColor[(+key) - 1];
-            window.currentIndex = 'cell_' + key;
-            window.flag = false;
         } else {
-            window.nextColor = window.randColor[(+key) - 1];
-            window.nextIndex = 'cell_' + key;
-            window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
-            if(!window.flagWhite) {
-                    window.count++;
-                    console.log(window.count)
-            }
-            window.flag = true;
-        }
+            document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
+            if (window.flag) {
+                window.flagWhite = false;
+                window.currentColor = window.randColor[(+key) - 1];
 
-        if(window.flagWhite) {
-            setTimeout(function() { reset() }, 700);
+                window.currentIndex = 'cell_' + key;
+                window.flag = false;
+            } else {
+                window.nextColor = window.randColor[(+key) - 1];
+                window.currentIndexFirst = window.currentIndex;
+                window.nextIndex = 'cell_' + key;
+                window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
+                if (!window.flagWhite) {
+                    window.count++;
+                    window.goodCell.push(window.currentIndexFirst);
+                    window.goodCell.push(window.nextIndex);
+                    console.log(window.count)
+                }
+                window.flag = true;
+            }
+
+            if (window.flagWhite) {
+
+                setTimeout(function () {
+                    reset()
+                }, 700);
+            }
         }
     }
 }
@@ -90,7 +100,7 @@ function comparisonColor(firstColor, secondColor) {
 
 }
 function reset() {
-    document.getElementById(window.currentIndex).setAttribute('bgcolor', 'white');
+    document.getElementById(window.currentIndexFirst).setAttribute('bgcolor', 'white');
     document.getElementById(window.nextIndex).setAttribute('bgcolor', 'white');
 }
 
@@ -98,8 +108,9 @@ function timer() {
     if (window.count < 8) {
     document.getElementById('timer').value = window.minute + ':' + window.second;
     window.second++;
-    if ((window.second % 60000) == 0) {
+    if ((window.second % 60) == 0) {
         window.minute++;
+        window.second = 0;
     }
 
     } else {
@@ -114,5 +125,13 @@ function startTimer() {
     window.timeId = setInterval(function () {
             timer()
         }, 1000);
-    
+
+}
+function find(arr, element) {
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i] === element) {
+            return true;
+        }
+    }
+    return false;
 }
