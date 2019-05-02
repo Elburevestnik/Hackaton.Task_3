@@ -13,6 +13,7 @@ var minute = 0;
 var second = 0;
 var timeId = 0;
 var goodCell = [];
+var flagClick = true;
 function start() {
     document.getElementById('timer').value = '0';
     var arrLen= document.getElementsByTagName('td').length;
@@ -59,37 +60,42 @@ function getRandColor() {
 function getColor(key) {
 
     if(!flagStart) {
-        alert('Error! Click on Start!');
+        alert('Error! Click Start!');
     } else {
-        if (find(window.goodCell, 'cell_' + key)) {
+        if(!window.flagClick) {
 
         } else {
-            document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
-            if (window.flag) {
-                window.flagWhite = false;
-                window.currentColor = window.randColor[(+key) - 1];
+            if (find(window.goodCell, 'cell_' + key)) {
 
-                window.currentIndex = 'cell_' + key;
-                window.flag = false;
             } else {
-                window.nextColor = window.randColor[(+key) - 1];
-                window.currentIndexFirst = window.currentIndex;
-                window.nextIndex = 'cell_' + key;
-                window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
-                if (!window.flagWhite) {
-                    window.count++;
-                    window.goodCell.push(window.currentIndexFirst);
-                    window.goodCell.push(window.nextIndex);
-                    console.log(window.count)
+                document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
+                if (window.flag) {
+                    window.flagWhite = false;
+                    window.currentColor = window.randColor[(+key) - 1];
+
+                    window.currentIndex = 'cell_' + key;
+                    window.flag = false;
+                } else {
+                    window.nextColor = window.randColor[(+key) - 1];
+                    window.currentIndexFirst = window.currentIndex;
+                    window.nextIndex = 'cell_' + key;
+                    window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
+                    if (!window.flagWhite) {
+                        window.count++;
+                        window.goodCell.push(window.currentIndexFirst);
+                        window.goodCell.push(window.nextIndex);
+                        console.log(window.count)
+                    }
+                    window.flag = true;
+
                 }
-                window.flag = true;
-            }
 
-            if (window.flagWhite) {
-
-                setTimeout(function () {
-                    reset()
-                }, 700);
+                if (window.flagWhite) {
+                    window.flagClick = false;
+                    setTimeout(function () {
+                        reset()
+                    }, 700);
+                }
             }
         }
     }
@@ -102,6 +108,7 @@ function comparisonColor(firstColor, secondColor) {
 function reset() {
     document.getElementById(window.currentIndexFirst).setAttribute('bgcolor', 'white');
     document.getElementById(window.nextIndex).setAttribute('bgcolor', 'white');
+    window.flagClick = true;
 }
 
 function timer() {
