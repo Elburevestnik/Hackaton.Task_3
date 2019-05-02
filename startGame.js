@@ -79,6 +79,7 @@ function getColor(key) {
                     window.nextColor = window.randColor[(+key) - 1];
                     window.currentIndexFirst = window.currentIndex;
                     window.nextIndex = 'cell_' + key;
+                    window.flagClick = false;
                     window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
                     if (!window.flagWhite) {
                         window.count++;
@@ -91,7 +92,6 @@ function getColor(key) {
                 }
 
                 if (window.flagWhite) {
-                    window.flagClick = false;
                     setTimeout(function () {
                         reset()
                     }, 700);
@@ -101,8 +101,11 @@ function getColor(key) {
     }
 }
 function comparisonColor(firstColor, secondColor) {
-    if(firstColor === secondColor) return false;
-    else return true;
+
+    if(firstColor === secondColor) {
+        window.flagClick = true;
+        return false;
+    }    else return true;
 
 }
 function reset() {
