@@ -62,9 +62,9 @@ function getColor(key) {
     if(!flagStart) {
         alert('Error! Click Start!');
     } else {
-        if(!window.flagClick) {
+       // if(!window.flagClick) {
 
-        } else {
+        //} else {
             if (find(window.goodCell, 'cell_' + key)) {
 
             } else {
@@ -77,28 +77,30 @@ function getColor(key) {
                     window.flag = false;
                 } else {
                     window.nextColor = window.randColor[(+key) - 1];
-                    window.currentIndexFirst = window.currentIndex;
                     window.nextIndex = 'cell_' + key;
+                    var nextIndex = window.nextIndex;
+                    var currentIndexFirst = window.currentIndex;
+                    var nextColor = window.nextColor;
+                    var currentColor = window.currentColor;
                     window.flagClick = false;
-                    window.flagWhite = comparisonColor(window.currentColor, window.nextColor);
+                    window.flagWhite = comparisonColor(currentColor, nextColor);
                     if (!window.flagWhite) {
                         window.count++;
                         window.goodCell.push(window.currentIndexFirst);
                         window.goodCell.push(window.nextIndex);
                         console.log(window.count)
+                    } else  if (window.flagWhite) {
+                        setTimeout(function () {
+                            reset(currentIndexFirst, nextIndex)
+                        }, 700);
                     }
                     window.flag = true;
-
                 }
 
-                if (window.flagWhite) {
-                    setTimeout(function () {
-                        reset()
-                    }, 700);
-                }
+
             }
         }
-    }
+    //}
 }
 function comparisonColor(firstColor, secondColor) {
 
@@ -108,9 +110,9 @@ function comparisonColor(firstColor, secondColor) {
     }    else return true;
 
 }
-function reset() {
-    document.getElementById(window.currentIndexFirst).setAttribute('bgcolor', 'white');
-    document.getElementById(window.nextIndex).setAttribute('bgcolor', 'white');
+function reset(currentIndex, nextIndex) {
+    document.getElementById(currentIndex).setAttribute('bgcolor', 'white');
+    document.getElementById(nextIndex).setAttribute('bgcolor', 'white');
     window.flagClick = true;
 }
 
