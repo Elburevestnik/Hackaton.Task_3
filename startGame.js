@@ -68,33 +68,38 @@ function getColor(key) {
             if (find(window.goodCell, 'cell_' + key)) {
 
             } else {
-                document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
-                if (window.flag) {
-                    window.flagWhite = false;
-                    window.currentColor = window.randColor[(+key) - 1];
+                if(window.flagClick) {
+                    document.getElementById('cell_' + key).setAttribute('bgcolor', window.randColor[(+key) - 1]);
+                    if (window.flag) {
+                        window.flagWhite = false;
+                        window.currentColor = window.randColor[(+key) - 1];
 
-                    window.currentIndex = 'cell_' + key;
-                    window.flag = false;
-                } else {
-                    window.nextColor = window.randColor[(+key) - 1];
-                    window.nextIndex = 'cell_' + key;
-                    var nextIndex = window.nextIndex;
-                    var currentIndexFirst = window.currentIndex;
-                    var nextColor = window.nextColor;
-                    var currentColor = window.currentColor;
-                    window.flagClick = false;
-                    window.flagWhite = comparisonColor(currentColor, nextColor);
-                    if (!window.flagWhite) {
-                        window.count++;
-                        window.goodCell.push(window.currentIndexFirst);
-                        window.goodCell.push(window.nextIndex);
-                        console.log(window.count)
-                    } else  if (window.flagWhite) {
-                        setTimeout(function () {
-                            reset(currentIndexFirst, nextIndex)
-                        }, 700);
+                        window.currentIndex = 'cell_' + key;
+                        window.flag = false;
+                    } else {
+                        window.nextColor = window.randColor[(+key) - 1];
+                        window.nextIndex = 'cell_' + key;
+                        var nextIndex = window.nextIndex;
+                        var currentIndexFirst = window.currentIndex;
+                        var nextColor = window.nextColor;
+                        var currentColor = window.currentColor;
+                        window.flagClick = false;
+                        window.flagWhite = comparisonColor(currentColor, nextColor);
+                        if (!window.flagWhite) {
+                            window.count++;
+                            window.goodCell.push(window.currentIndexFirst);
+                            window.goodCell.push(window.nextIndex);
+                            console.log(window.count)
+                        } else  if (window.flagWhite) {
+                            setTimeout(function () {
+                                reset(currentIndexFirst, nextIndex)
+                            }, 700);
+                        }
+                        window.flag = true;
                     }
-                    window.flag = true;
+
+                } else {
+
                 }
 
 
