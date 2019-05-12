@@ -79,25 +79,30 @@ function getColor(key) {
                     } else {
                         window.nextColor = window.randColor[(+key) - 1];
                         window.nextIndex = 'cell_' + key;
-                        var nextIndex = window.nextIndex;
-                        var currentIndexFirst = window.currentIndex;
-                        var nextColor = window.nextColor;
-                        var currentColor = window.currentColor;
-                        window.flagClick = false;
-                        window.flagWhite = comparisonColor(currentColor, nextColor);
-                        if (!window.flagWhite) {
-                            window.count++;
-                            window.goodCell.push(window.currentIndexFirst);
-                            window.goodCell.push(window.nextIndex);
-                            console.log(window.count)
-                        } else  if (window.flagWhite) {
-                            setTimeout(function () {
-                                reset(currentIndexFirst, nextIndex)
-                            }, 700);
-                        }
-                        window.flag = true;
-                    }
+                        if (window.currentIndex == window.nextIndex) {
 
+                        } else {
+                            window.nextColor = window.randColor[(+key) - 1];
+                            window.nextIndex = 'cell_' + key;
+                            var nextIndex = window.nextIndex;
+                            var currentIndexFirst = window.currentIndex;
+                            var nextColor = window.nextColor;
+                            var currentColor = window.currentColor;
+                            window.flagClick = false;
+                            window.flagWhite = comparisonColor(currentColor, nextColor);
+                            if (!window.flagWhite) {
+                                window.count++;
+                                window.goodCell.push(window.currentIndexFirst);
+                                window.goodCell.push(window.nextIndex);
+                                console.log(window.count)
+                            } else if (window.flagWhite) {
+                                setTimeout(function () {
+                                    reset(currentIndexFirst, nextIndex)
+                                }, 700);
+                            }
+                            window.flag = true;
+                        }
+                    }
                 } else {
 
                 }
